@@ -1,0 +1,19 @@
+version: '2.3'
+
+services:
+
+  synth-polyp:
+    image: synth-polyp
+    container_name: synth-polyp
+    working_dir: /synth-polyp
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/synth-polyp
+    runtime: nvidia
+    shm_size: '12gb'
+    command: tail /dev/null -f
+
+# python MyTrain.py --train_path polyp-data/TrainDataset --train_save results
+# python MyTest.py --pth_path snapshots/results/PraNet-19.pth --test_path polyp-data/TestDataset
