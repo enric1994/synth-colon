@@ -200,7 +200,7 @@ def hardnet(arch=68,pretrained=True, **kwargs):
         print("68 LOADED")
         model = HarDNet(arch=68)
         if pretrained:
-            weights = torch.load('/synth-polyp/lib/hardnet68.pth')
+            weights = torch.load('/main/lib/hardnet68.pth')
             model.load_state_dict(weights)
             print("68 LOADED READY")
     #elif arch == 85:

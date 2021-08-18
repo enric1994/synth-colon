@@ -30,4 +30,5 @@ services:
     command: tail /dev/null -f
 
 # python MyTrain.py --train_path polyp-data/TrainDataset --train_save results
+# python MyTrain.py --train_path /main/synth/data/out/test_dataset --train_save resultsV1
 # python MyTest.py --pth_path snapshots/results/PraNet-19.pth --test_path polyp-data/TestDataset
