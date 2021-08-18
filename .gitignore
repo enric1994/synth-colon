@@ -2,3 +2,5 @@ results/
 snapshots/
 *.pth
 *.pyc
+*.png
+*.blend1

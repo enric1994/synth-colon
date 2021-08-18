@@ -2,17 +2,31 @@ version: '2.3'
 
 services:
 
+  main:
+    image: main
+    container_name: main
+    working_dir: /main
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../:/main
+      - /media/enric/enric_hdd/datasets/polyp-data/:/polyp-data
+    runtime: nvidia
+    shm_size: '12gb'
+    command: tail /dev/null -f
+  
   synth-polyp:
     image: synth-polyp
     container_name: synth-polyp
     working_dir: /synth-polyp
     build:
       context: ../
-      dockerfile: docker/Dockerfile
+      dockerfile: docker/Dockerfile.synth
     volumes:
       - ../:/synth-polyp
-    runtime: nvidia
-    shm_size: '12gb'
+      - /media/enric/enric_hdd/datasets/places365_standard/:/datasets/places:ro
+      - /media/enric/enric_hdd/datasets/dtd/:/datasets/dtd:ro
     command: tail /dev/null -f
 
 # python MyTrain.py --train_path polyp-data/TrainDataset --train_save results
