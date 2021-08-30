@@ -10,6 +10,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--testsize', type=int, default=352, help='testing size')
 parser.add_argument('--pth_path', type=str, default='HarD-MSEG-best.pth')
 parser.add_argument('--test_data', type=str, default='TestData')
+parser.add_argument('--save_path', type=str, default='/main/results/dataset_name')
 #for _data_name in ['CVC-ClinicDB']:
 for _data_name in ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-LaribPolypDB']:
     
@@ -18,7 +19,7 @@ for _data_name in ['CVC-300', 'CVC-ClinicDB', 'Kvasir', 'CVC-ColonDB', 'ETIS-Lar
     data_path = '{}/{}/'.format(opt.test_data, _data_name)
     #####                       #####
     
-    save_path = './results/HarDMSEG/{}/'.format(_data_name)
+    save_path = '{}/{}/'.format(opt.save_path, _data_name)
     model = HarDMSEG()
     model.load_state_dict(torch.load(opt.pth_path))
     model.cuda()

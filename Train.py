@@ -37,7 +37,8 @@ def test(model, path):
     gt_root = '{}/masks/'.format(data_path)
     test_loader = test_dataset(image_root, gt_root, 352)
     b=0.0
-    for i in range(100):
+    # 50 = CVC-300 test size!
+    for i in range(50):
         image, gt, name = test_loader.load_data()
         gt = np.asarray(gt, np.float32)
         gt /= (gt.max() + 1e-8)
@@ -137,7 +138,7 @@ if __name__ == '__main__':
                         default=16, help='training batch size')
     
     parser.add_argument('--trainsize', type=int,
-                        default=352, help='training dataset size')
+                        default=480, help='training dataset size')
     
     parser.add_argument('--clip', type=float,
                         default=0.5, help='gradient clipping margin')

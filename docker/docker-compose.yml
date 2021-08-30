@@ -11,7 +11,7 @@ services:
       dockerfile: docker/Dockerfile
     volumes:
       - ../:/main
-      - /media/enric/enric_hdd/datasets/polyp-data/:/polyp-data
+      - /media/enric/enric_hdd/datasets/polyp-data/:/polyp-data:ro
     runtime: nvidia
     shm_size: '12gb'
     command: tail /dev/null -f
@@ -19,7 +19,7 @@ services:
   synth-polyp:
     image: synth-polyp
     container_name: synth-polyp
-    working_dir: /synth-polyp
+    working_dir: /synth-polyp/synth/src
     build:
       context: ../
       dockerfile: docker/Dockerfile.synth
@@ -27,8 +27,5 @@ services:
       - ../:/synth-polyp
       - /media/enric/enric_hdd/datasets/places365_standard/:/datasets/places:ro
       - /media/enric/enric_hdd/datasets/dtd/:/datasets/dtd:ro
+      - /media/enric/enric_hdd/datasets/polyp-data/:/polyp-data:ro
     command: tail /dev/null -f
-
-# python MyTrain.py --train_path polyp-data/TrainDataset --train_save results
-# python MyTrain.py --train_path /main/synth/data/out/test_dataset --train_save resultsV1
-# python MyTest.py --pth_path snapshots/results/PraNet-19.pth --test_path polyp-data/TestDataset

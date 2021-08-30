@@ -4,3 +4,5 @@ snapshots/
 *.pyc
 *.png
 *.blend1
+synth/data/
+eval/EvaluateResults/

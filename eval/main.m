@@ -21,7 +21,7 @@ Models = {'HarDMSEG'};
 modelNum = length(Models);
 
 % ---- 2. Ground-truth Datasets Setting ----
-DataPath = '../polyp-data/TestDataset/';
+DataPath = '/polyp-data/TestDataset/';
 Datasets = {'CVC-ClinicDB', 'CVC-ColonDB','ETIS-LaribPolypDB', 'Kvasir','CVC-300'};
 
 % ---- 3. Evaluation Results Save Path Setting ----

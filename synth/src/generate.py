@@ -1,7 +1,13 @@
 import bpy
 import random
 import blender_utils as utils
-from dtd_utils import get_random_texture
+from dtd_utils import get_random_texture, get_random_polyp
+import os
+import numpy as np
+from PIL import Image
+
+dataset_version = 'synth-polyp-V3'
+TOTAL_IMAGES = 500
 
 
 # Make colon
@@ -25,7 +31,6 @@ def pathPointLoc(cpath, points):
     return
 
 
-TOTAL_IMAGES = 1000
 
 for image_number in range(0,TOTAL_IMAGES):
     utils.load_project('/synth-polyp/synth/base.blend')
@@ -69,7 +74,7 @@ for image_number in range(0,TOTAL_IMAGES):
     mat = bpy.data.materials.new(name="Material")
 
     tex = bpy.data.textures.new("SomeName", 'IMAGE')
-    img = bpy.data.images.load(filepath=get_random_texture())
+    img = bpy.data.images.load(filepath=get_random_polyp())
 
     tex.image = img
     # tex.texture_coords = 'WINDOW'
@@ -93,7 +98,7 @@ for image_number in range(0,TOTAL_IMAGES):
             object_name = 'Sphere.' + str(i).zfill(3)
         else:
             object_name = 'Sphere'
-        bpy.ops.mesh.primitive_uv_sphere_add(segments=64, ring_count=32, location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=120, ring_count=120, location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
 
         bpy.data.objects[object_name].scale[0] = random.uniform(0.1, 0.5)
         bpy.data.objects[object_name].scale[1] = random.uniform(0.1, 0.5)
@@ -107,13 +112,16 @@ for image_number in range(0,TOTAL_IMAGES):
         bpy.ops.mesh.vertices_smooth()
         bpy.ops.mesh.vertices_smooth()
         bpy.ops.mesh.vertices_smooth()
+        bpy.ops.mesh.vertices_smooth()
+        bpy.ops.mesh.vertices_smooth()
+        bpy.ops.mesh.vertices_smooth()
         bpy.ops.object.mode_set(mode='OBJECT')
 
         #Create material
         mat = bpy.data.materials.new(name="Material." + str(i))
 
         tex = bpy.data.textures.new("SomeName." + str(i), 'IMAGE')
-        img = bpy.data.images.load(filepath=get_random_texture())
+        img = bpy.data.images.load(filepath=get_random_polyp())
 
         tex.image = img
         # tex.texture_coords = 'WINDOW'
@@ -187,7 +195,7 @@ for image_number in range(0,TOTAL_IMAGES):
     utils.set_lighting(lighting_config)
 
     # Render
-    utils.render_keyframes('images', image_number, 'test_dataset')
+    utils.render_keyframes('images', image_number, dataset_version)
 
     # Render mask
     bpy.data.worlds['World'].horizon_color=(0,0,0)
@@ -209,169 +217,32 @@ for image_number in range(0,TOTAL_IMAGES):
     # bpy.data.objects['MyCurveObject'].hide_render=True
 
     # Render
-    utils.render_keyframes('masks', image_number, 'test_dataset')
+    utils.render_keyframes('masks', image_number, dataset_version)
 
     # Reset
     bpy.ops.wm.read_factory_settings(use_empty=True)
 
 
-# import bpy
-# import math
-# import sys
-# import os
-# import random
 
-# from dtd_utils import get_random_texture
-# from places_utils import get_random_image
+def remove_empty_masks(dataset_name):
 
-# dataset_name = 'V3'
+    print('Removing images with no polyps...')
 
-# BACKGROUND_CLASSES = ['cliff', 'hotel-outdoor', 'hangar-outdoor', 'bridge', 'moat-water', 'pond', 'hospital_room', 'mezzanine', 'ocean', 'apartment_building-outdoor', 'shoe_shop', 'bow_window-indoor', 'raceway', 'arena-performance', 'forest_path', 'ski_slope', 'building_facade', 'boathouse', 'hardware_store', 'ice_skating_rink-indoor', 'barndoor', 'cafeteria', 'aqueduct', 'village', 'iceberg', 'lighthouse', 'discotheque', 'sky', 'alley', 'corral', 'tower', 'oast_house', 'amusement_park', 'balcony-exterior', 'slum', 'delicatessen', 'pasture', 'embassy', 'jacuzzi-indoor', 'shopping_mall-indoor', 'balcony-interior', 'office_cubicles', 'pub-indoor', 'flea_market-indoor', 'legislative_chamber', 'basketball_court-indoor', 'gymnasium-indoor', 'harbor', 'kitchen', 'chalet', 'watering_hole', 'shower', 'elevator_lobby', 'forest-broadleaf', 'beauty_salon', 'staircase', 'auditorium', 'train_interior', 'living_room', 'swimming_pool-outdoor', 'restaurant_kitchen', 'swamp', 'lecture_room', 'biology_laboratory', 'forest_road', 'heliport', 'gift_shop', 'bazaar-outdoor', 'ball_pit', 'hangar-indoor', 'canal-urban', 'bank_vault', 'hunting_lodge-outdoor', 'loading_dock', 'boxing_ring', 'entrance_hall', 'shed', 'mosque-outdoor', 'desert-vegetation', 'parking_lot', 'elevator_shaft', 'throne_room', 'kennel-outdoor', 'pantry', 'recreation_room', 'jail_cell', 'inn-outdoor', 'locker_room', 'lock_chamber', 'stadium-baseball', 'arcade', 'swimming_hole', 'cockpit', 'boat_deck', 'fire_station', 'mountain', 'chemistry_lab', 'stadium-football', 'rope_bridge', 'lagoon', 'airplane_cabin', 'downtown', 'tree_farm', 'islet', 'mountain_snowy', 'ruin', 'attic', 'ice_floe', 'car_interior', 'lake-natural', 'dorm_room', 'home_theater', 'market-outdoor', 'greenhouse-indoor', 'bar', 'fishpond', 'florist_shop-indoor', 'mansion', 'bus_interior', 'dam', 'patio', 'athletic_field-outdoor', 'grotto', 'basement', 'shopfront', 'arena-hockey', 'carrousel', 'archaelogical_excavation', 'gazebo-exterior', 'beer_hall', 'rainforest', 'windmill', 'kasbah', 'office', 'mountain_path', 'schoolhouse', 'palace', 'bedchamber', 'crevasse', 'canyon', 'plaza', 'archive', 'laundromat', 'diner-outdoor', 'booth-indoor', 'natural_history_museum', 'stage-indoor', 'stage-outdoor', 'pagoda', 'volleyball_court-outdoor', 'beer_garden', 'wheat_field', 'rice_paddy', 'art_studio', 'bedroom', 'banquet_hall', 'repair_shop', 'raft', 'glacier', 'army_base', 'ice_skating_rink-outdoor', 'playroom', 'football_field', 'subway_station-platform', 'waiting_room', 'field_road', 'waterfall', 'classroom', 'garage-outdoor', 'utility_room', 'dining_room', 'wave', 'youth_hostel', 'phone_booth', 'art_gallery', 'corridor', 'museum-outdoor', 'temple-asia', 'nursing_home', 'snowfield', 'bakery-shop', 'lobby', 'office_building', 'bamboo_forest', 'aquarium', 'galley', 'butte', 'bazaar-indoor', 'library-outdoor', 'field-wild', 'amusement_arcade', 'gas_station', 'wind_farm', 'beach', 'sauna', 'ballroom', 'stadium-soccer', 'wet_bar', 'food_court', 'greenhouse-outdoor', 'arena-rodeo', 'corn_field', 'courthouse', 'racecourse', 'cabin-outdoor', 'courtyard', 'hayfield', 'airport_terminal', 'farm', 'martial_arts_gym', 'excavation', 'cottage', 'medina', 'ticket_booth', 'childs_room', 'clothing_store', 'zen_garden', 'candy_store', 'fire_escape', 'doorway-outdoor', 'orchestra_pit', 'movie_theater-indoor', 'drugstore', 'mausoleum', 'market-indoor', 'general_store-outdoor', 'clean_room', 'campsite', 'landing_deck', 'manufactured_home', 'water_park', 'highway', 'playground', 'water_tower', 'orchard', 'underwater-ocean_deep', 'physics_laboratory', 'pavilion', 'art_school', 'tundra', 'river', 'beach_house', 'cemetery', 'baseball_field', 'church-outdoor', 'artists_loft', 'church-indoor', 'skyscraper', 'museum-indoor', 'ice_shelf', 'landfill', 'science_museum', 'picnic_area', 'soccer_field', 'volcano', 'auto_factory', 'alcove', 'library-indoor', 'hospital', 'junkyard', 'crosswalk', 'pier', 'vegetable_garden', 'closet', 'promenade', 'botanical_garden', 'marsh', 'train_station-platform', 'supermarket', 'bullring', 'desert_road', 'auto_showroom', 'trench', 'home_office', 'creek', 'department_store', 'conference_room', 'valley', 'pizzeria', 'oilrig', 'butchers_shop', 'hotel_room', 'igloo', 'yard', 'amphitheater', 'roof_garden', 'house', 'badlands', 'pet_shop', 'railroad_track', 'reception', 'japanese_garden', 'castle', 'campus', 'television_room', 'bathroom', 'field-cultivated', 'lawn', 'hot_spring', 'burial_chamber', 'ice_cream_parlor', 'berth', 'restaurant', 'engine_room', 'dressing_room', 'sushi_bar', 'fountain', 'runway', 'toyshop', 'catacomb', 'construction_site', 'bowling_alley', 'canal-natural', 'topiary_garden', 'formal_garden', 'fabric_store', 'storage_room', 'general_store-indoor', 'airfield', 'park', 'vineyard', 'bookstore', 'barn', 'ski_resort', 'porch', 'jewelry_shop', 'arch', 'golf_course', 'viaduct', 'boardwalk', 'garage-indoor', 'industrial_area', 'bus_station-indoor', 'motel', 'sandbox', 'music_studio', 'dining_hall', 'street', 'elevator-door', 'computer_room', 'kindergarden_classroom', 'coffee_shop', 'television_studio', 'swimming_pool-indoor', 'desert-sand', 'stable', 'assembly_line', 'synagogue-outdoor', 'server_room', 'fastfood_restaurant', 'atrium-public', 'veterinarians_office', 'residential_neighborhood', 'nursery', 'coast', 'driveway', 'operating_room', 'parking_garage-indoor', 'tree_house', 'escalator-indoor', 'pharmacy', 'rock_arch', 'parking_garage-outdoor', 'restaurant_patio', 'conference_center']
+    clean_dir = '/synth-polyp/synth/data/out/{}/masks/'.format(dataset_name)
+    images_dir = '/synth-polyp/synth/data/out/{}/images/'.format(dataset_name)
 
+    images = os.listdir(clean_dir)
 
-# items = os.listdir('/hand-synth/data/svg')
+    for image in images:
+        img = Image.open(clean_dir + image)
 
-# for item in items:
-# 	item_path = '/hand-synth/data/svg/' + item
+        im=np.asarray(img)
+        if 255 not in im:
+            os.remove(clean_dir + image)
+            os.remove(images_dir + image)
 
-# 	for image in range(0,500):
-# 		utils.load_project('/hand-synth/base.blend')
+            # print(image)
+            # import pdb;pdb.set_trace()
+        
 
-# 		camera_config = {'position': [5,0,0],
-# 		'render_size_x': 512,
-# 		'render_size_y': 512}
-# 		utils.set_camera(camera_config, 1)
-
-# 		########################################
-# 		background_config = {'position': [-5, 0, 0],
-# 		'ambient_color': [0.5,0.5,0.5],
-# 		'path': get_random_image(BACKGROUND_CLASSES),
-# 		'size_x': 10,
-# 		'size_y': 10}
-
-# 		utils.set_background(background_config)
-# 		##################
-# 		lighting_config = {'l0': {
-# 				'light_type': 'SUN',
-# 				'position': [0,0,10],
-# 				'rotation': [
-# 					random.uniform(0,4),
-# 					random.uniform(0,4),
-# 					random.uniform(0,4)
-# 				],
-# 				'energy': random.uniform(0,2),
-# 				'shadow': False,
-# 				'color': [
-# 					random.uniform(0,1),
-# 					random.uniform(0,1),
-# 					random.uniform(0,1)
-# 				]
-
-# 			},
-# 			'l1': {
-# 				'light_type': 'SUN',
-# 				'position': [0,0,10],
-# 				'rotation': [
-# 					random.uniform(0,4),
-# 					random.uniform(0,4),
-# 					random.uniform(0,4)
-# 				],
-# 				'energy': random.uniform(0,2),
-# 				'shadow': False,
-# 				'color': [
-# 					random.uniform(0,1),
-# 					random.uniform(0,1),
-# 					random.uniform(0,1)
-# 				]
-
-# 			},
-# 			'l2': {
-# 				'light_type': 'SUN',
-# 				'position': [0,0,10],
-# 				'rotation': [
-# 					random.uniform(0,4),
-# 					random.uniform(0,4),
-# 					random.uniform(0,4)
-# 				],
-# 				'energy': random.uniform(0,2),
-# 				'shadow': False,
-# 				'color': [
-# 					random.uniform(0,1),
-# 					random.uniform(0,1),
-# 					random.uniform(0,1)
-# 				]
-# 			}
-
-
-# 		}
-# 		utils.set_lighting(lighting_config)
-
-
-
-# 		bpy.ops.import_curve.svg (filepath=item_path)
-# 		objects = bpy.context.scene.objects
-
-# 		for obj in objects:
-# 			obj.select = obj.type == "CURVE"
-# 		bpy.context.scene.objects.active = bpy.data.objects["Curve"]
-# 		bpy.ops.object.join()
-
-
-
-# 		context = bpy.context
-# 		scene = context.scene
-
-# 		mball = bpy.data.objects.get("Curve")
-
-# 		if mball:
-# 			me = mball.to_mesh(scene, False, 'PREVIEW')
-
-# 			# add an object
-# 			o = bpy.data.objects.new("MBallMesh", me)
-# 			scene.objects.link(o)
-# 			o.matrix_world = mball.matrix_world
-
-# 			# not keep original
-# 			scene.objects.unlink(mball)
-
-
-# 		bpy.context.scene.objects.active = o
-# 		bpy.ops.object.modifier_add(type='SOLIDIFY')
-# 		bpy.context.object.modifiers["Solidify"].offset = 0.1
-# 		bpy.context.object.modifiers["Solidify"].thickness = random.uniform(0.01,0.03)
-# 		bpy.context.active_object.rotation_mode = 'XYZ'
-
-# 		# random.uniform(0,360)
-# 		bpy.context.active_object.rotation_euler = (math.radians(random.uniform(0,360)), random.uniform(0,360), math.radians(random.uniform(0,360)))
-# 		bpy.context.scene.objects.active.scale = (random.uniform(15,20), random.uniform(15,20), random.uniform(15,20))
-# 		bpy.context.active_object.location = [random.uniform(-0.5,0.5),random.uniform(-0.5,0.5),random.uniform(-0.5,0.5)]
-
-# 		# Remove materials
-# 		o.data.materials.clear()
-
-# 		# Create material
-# 		mat = bpy.data.materials.new(name="Material")
-
-# 		tex = bpy.data.textures.new("SomeName", 'IMAGE')
-# 		img = bpy.data.images.load(filepath=get_random_texture())
-
-# 		tex.image = img
-# 		# tex.texture_coords = 'WINDOW'
-
-# 		slot = mat.texture_slots.add()
-# 		slot.texture = tex
-# 		slot.texture_coords = 'OBJECT'
-
-
-# 		# Apply material
-# 		o.data.materials.append(mat)
-
-# 		utils.save_project('/hand-synth/scene.blend')
-
-
-
-# 		# Render
-# 		utils.render_keyframes(item.split('.')[0], image, dataset_name)
-
-# 		# Reset
-# 		bpy.ops.wm.read_factory_settings(use_empty=True)
+remove_empty_masks(dataset_version)
