@@ -1,13 +1,13 @@
 import bpy
 import random
 import blender_utils as utils
-from dtd_utils import get_random_texture, get_random_polyp
+from dtd_utils import get_random_texture, get_random_polyp, plain_color
 import os
 import numpy as np
 from PIL import Image
 
-dataset_version = 'synth-polyp-V3'
-TOTAL_IMAGES = 500
+dataset_version = 'synth-polyp-V4'
+TOTAL_IMAGES = 2000
 
 
 # Make colon
@@ -74,7 +74,7 @@ for image_number in range(0,TOTAL_IMAGES):
     mat = bpy.data.materials.new(name="Material")
 
     tex = bpy.data.textures.new("SomeName", 'IMAGE')
-    img = bpy.data.images.load(filepath=get_random_polyp())
+    img = bpy.data.images.load(filepath=plain_color('colon'))
 
     tex.image = img
     # tex.texture_coords = 'WINDOW'
@@ -98,7 +98,7 @@ for image_number in range(0,TOTAL_IMAGES):
             object_name = 'Sphere.' + str(i).zfill(3)
         else:
             object_name = 'Sphere'
-        bpy.ops.mesh.primitive_uv_sphere_add(segments=120, ring_count=120, location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
+        bpy.ops.mesh.primitive_uv_sphere_add(segments=64, ring_count=64, location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
 
         bpy.data.objects[object_name].scale[0] = random.uniform(0.1, 0.5)
         bpy.data.objects[object_name].scale[1] = random.uniform(0.1, 0.5)
@@ -113,15 +113,13 @@ for image_number in range(0,TOTAL_IMAGES):
         bpy.ops.mesh.vertices_smooth()
         bpy.ops.mesh.vertices_smooth()
         bpy.ops.mesh.vertices_smooth()
-        bpy.ops.mesh.vertices_smooth()
-        bpy.ops.mesh.vertices_smooth()
         bpy.ops.object.mode_set(mode='OBJECT')
 
         #Create material
         mat = bpy.data.materials.new(name="Material." + str(i))
 
         tex = bpy.data.textures.new("SomeName." + str(i), 'IMAGE')
-        img = bpy.data.images.load(filepath=get_random_polyp())
+        img = bpy.data.images.load(filepath=plain_color('polyp'))
 
         tex.image = img
         # tex.texture_coords = 'WINDOW'

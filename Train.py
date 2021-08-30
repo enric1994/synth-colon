@@ -73,6 +73,7 @@ def train(train_loader, model, optimizer, epoch, test_path):
     # ---- multi-scale training ----
     size_rates = [0.75, 1, 1.25]
     loss_record2, loss_record3, loss_record4, loss_record5 = AvgMeter(), AvgMeter(), AvgMeter(), AvgMeter()
+    best = 0.0
     for i, pack in enumerate(train_loader, start=1):
         for rate in size_rates:
             optimizer.zero_grad()
@@ -111,7 +112,7 @@ def train(train_loader, model, optimizer, epoch, test_path):
     save_path = 'snapshots/{}/'.format(opt.train_save)
     os.makedirs(save_path, exist_ok=True)
     
-    best = 0
+    
     if (epoch+1) % 1 == 0:
         meandice = test(model,test_path)
         if meandice > best:

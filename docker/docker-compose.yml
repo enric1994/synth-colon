@@ -29,3 +29,17 @@ services:
       - /media/enric/enric_hdd/datasets/dtd/:/datasets/dtd:ro
       - /media/enric/enric_hdd/datasets/polyp-data/:/polyp-data:ro
     command: tail /dev/null -f
+
+  cyclegan:
+    image: cyclegan
+    container_name: cyclegan
+    working_dir: /cyclegan
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile.cyclegan
+    volumes:
+      - ../:/cyclegan
+      - /media/enric/enric_hdd/datasets/polyp-data/:/polyp-data:ro
+    runtime: nvidia
+    shm_size: '12gb'
+    command: tail /dev/null -f

@@ -26,3 +26,9 @@ def get_random_polyp():
     image_path = os.path.join(polyps_path, image_name)
 
     return image_path
+
+def plain_color(name):
+    if name == 'colon':
+        return '/synth-polyp/synth/plain_colors/skin.png'
+    elif name == 'polyp':
+        return '/synth-polyp/synth/plain_colors/apple.png'

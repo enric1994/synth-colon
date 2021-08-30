@@ -6,3 +6,4 @@ snapshots/
 *.blend1
 synth/data/
 eval/EvaluateResults/
+logs/
