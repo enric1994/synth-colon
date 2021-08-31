@@ -338,12 +338,12 @@ def set_objects(objects_info, render_size_x, render_size_y, total_frames):
 	return all_vertexs
 
 def render_keyframes(output_folder, image_id, dataset_name):
-	os.makedirs('/synth-polyp/synth/data/out/{}/{}'.format(dataset_name, output_folder), exist_ok=True)
+	os.makedirs('/synth-polyp/data/{}/{}'.format(dataset_name, output_folder), exist_ok=True)
 	image_paths = []
 	# for i in range(0,total_frames):
 	bpy.context.scene.frame_current = 0
 	bpy.context.scene.render.image_settings.file_format = 'PNG'
-	bpy.context.scene.render.filepath = '/synth-polyp/synth/data/out/{}/{}/{}.png'.format(dataset_name, output_folder, str(image_id).zfill(8))
+	bpy.context.scene.render.filepath = '/synth-polyp/data/{}/{}/{}.png'.format(dataset_name, output_folder, str(image_id).zfill(8))
 	bpy.ops.render.render(write_still=True)
 
 	image_paths.append('{}/{}.png'.format(output_folder, str(image_id).zfill(8)))

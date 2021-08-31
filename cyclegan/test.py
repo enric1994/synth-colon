@@ -32,6 +32,7 @@ from data import create_dataset
 from models import create_model
 from util.visualizer import save_images
 from util import html
+from torchvision.utils import save_image
 
 
 if __name__ == '__main__':
@@ -62,8 +63,13 @@ if __name__ == '__main__':
         model.set_input(data)  # unpack data from data loader
         model.test()           # run inference
         visuals = model.get_current_visuals()  # get image results
-        img_path = model.get_image_paths()     # get image paths
-        if i % 5 == 0:  # save images to an HTML file
-            print('processing (%04d)-th image... %s' % (i, img_path))
-        save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize)
-    webpage.save()  # save the HTML
+        os.makedirs(opt.dataroot + 'cyclegan_images/', exist_ok=True)
+        original_path = dataset.dataset[i]['A_paths']
+        save_path = opt.dataroot + 'cyclegan_images/' + original_path.split('/')[-1]
+        save_image(visuals['fake_B'][0], save_path)
+        # import pdb;pdb.set_trace()
+        # img_path = model.get_image_paths()     # get image paths
+        # if i % 5 == 0:  # save images to an HTML file
+        #     print('processing (%04d)-th image... %s' % (i, img_path))
+        # save_images(webpage, visuals, img_path, aspect_ratio=opt.aspect_ratio, width=opt.display_winsize)
+    # webpage.save()  # save the HTML

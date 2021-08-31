@@ -19,7 +19,7 @@ services:
   synth-polyp:
     image: synth-polyp
     container_name: synth-polyp
-    working_dir: /synth-polyp/synth/src
+    working_dir: /synth-polyp
     build:
       context: ../
       dockerfile: docker/Dockerfile.synth
