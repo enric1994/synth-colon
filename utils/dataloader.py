@@ -16,7 +16,7 @@ class PolypDataset(data.Dataset):
         self.augmentations = augmentations
         print(self.augmentations)
         self.images = [image_root + f for f in os.listdir(image_root) if f.endswith('.jpg') or f.endswith('.png')]
-        self.gts = [gt_root + f for f in os.listdir(gt_root) if f.endswith('.png')]
+        self.gts = [gt_root + f for f in os.listdir(image_root) if f.endswith('.png')]
         self.images = sorted(self.images)
         self.gts = sorted(self.gts)
         self.filter_files()

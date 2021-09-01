@@ -109,7 +109,7 @@ def train(train_loader, model, optimizer, epoch, test_path):
                   ' lateral-5: {:0.4f}]'.
                   format(datetime.now(), epoch, opt.epoch, i, total_step,
                           loss_record5.show()))
-    save_path = 'snapshots/{}/'.format(opt.train_save)
+    save_path = '/main/data/{}/snapshots/'.format(opt.train_save)
     os.makedirs(save_path, exist_ok=True)
     
     
@@ -178,7 +178,7 @@ if __name__ == '__main__':
         optimizer = torch.optim.SGD(params, opt.lr, weight_decay = 1e-4, momentum = 0.9)
         
     print(optimizer)
-    image_root = '{}/images/'.format(opt.train_path)
+    image_root = '{}/cyclegan_images/'.format(opt.train_path)
     gt_root = '{}/masks/'.format(opt.train_path)
 
     train_loader = get_loader(image_root, gt_root, batchsize=opt.batchsize, trainsize=opt.trainsize, augmentation = opt.augmentation)
