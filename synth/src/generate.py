@@ -50,7 +50,7 @@ def gen(dataset_version, TOTAL_IMAGES):
         cu.bevel_object = bpy.data.objects["BezierCircle"]
         cu.taper_object = bpy.data.objects["BezierCircle"]
 
-        max_rand = 1
+        max_rand = 0.4
         long_interval = .5
 
         pts = [(0, 0, 0, 1), (1 *  long_interval, random.uniform(-max_rand,max_rand),random.uniform(-max_rand, max_rand), 1), (2 * long_interval, random.uniform(-max_rand, max_rand),random.uniform(-max_rand, max_rand), 1), (3 * long_interval, random.uniform(-max_rand, max_rand),random.uniform(-max_rand, max_rand), 1), (4 * long_interval, random.uniform(-max_rand, max_rand),random.uniform(-max_rand, max_rand), 1), (5 * long_interval, random.uniform(-max_rand, max_rand),random.uniform(-max_rand, max_rand), 1), (6 * long_interval, 0, 0, 1), (7 * long_interval, 0, 0, 1)]
@@ -67,28 +67,33 @@ def gen(dataset_version, TOTAL_IMAGES):
         bpy.ops.transform.vertex_random(offset=random.uniform(0,0.15), uniform=0.0, normal=0.0, seed=0)
         bpy.ops.mesh.vertices_smooth()
         bpy.ops.mesh.vertices_smooth()
+        bpy.ops.mesh.vertices_smooth()
         bpy.ops.object.mode_set(mode='OBJECT')
 
         #Create material
         mat = bpy.data.materials.new(name="Material")
+        random_shade_1 = random.uniform(0.6,1.2)
+        random_shade_2 = random.uniform(0.6,1.2)
+        random_shade_3 = random.uniform(0.6,1.2)
+        mat.diffuse_color=[0.800000 * random_shade_1, 0.18 * random_shade_2, 0.13 * random_shade_3]
 
-        tex = bpy.data.textures.new("SomeName", 'IMAGE')
-        img = bpy.data.images.load(filepath=plain_color('colon'))
+        # tex = bpy.data.textures.new("SomeName", 'IMAGE')
+        # img = bpy.data.images.load(filepath=plain_color('colon'))
 
-        tex.image = img
-        # tex.texture_coords = 'WINDOW'
+        # tex.image = img
+        # # tex.texture_coords = 'WINDOW'
 
-        slot = mat.texture_slots.add()
-        slot.texture = tex
-        # slot.texture_coords = 'OBJECT'
-        slot.texture_coords='GLOBAL'
+        # slot = mat.texture_slots.add()
+        # slot.texture = tex
+        # # slot.texture_coords = 'OBJECT'
+        # slot.texture_coords='GLOBAL'
         # import pdb;pdb.set_trace()
 
         # Apply material
         bpy.data.objects['MyCurveObject'].data.materials.append(mat)
 
 
-        num_polyps = 3
+        num_polyps = 1
 
         # Make polyps
         for i in range(0,num_polyps):
@@ -97,7 +102,7 @@ def gen(dataset_version, TOTAL_IMAGES):
                 object_name = 'Sphere.' + str(i).zfill(3)
             else:
                 object_name = 'Sphere'
-            bpy.ops.mesh.primitive_uv_sphere_add(segments=64, ring_count=64, location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
+            bpy.ops.mesh.primitive_uv_sphere_add(segments=128, ring_count=128, location=(0.0, 0.0, 0.0), rotation=(0.0, 0.0, 0.0))
 
             bpy.data.objects[object_name].scale[0] = random.uniform(0.1, 0.5)
             bpy.data.objects[object_name].scale[1] = random.uniform(0.1, 0.5)
@@ -107,7 +112,7 @@ def gen(dataset_version, TOTAL_IMAGES):
             bpy.data.objects[object_name].location[1] = random.uniform(-1, 1)
             bpy.data.objects[object_name].location[2] = random.uniform(-1, 1)
             bpy.ops.object.mode_set(mode='EDIT')
-            bpy.ops.transform.vertex_random(offset=random.uniform(0,0.45), uniform=0.0, normal=0.0, seed=0)
+            bpy.ops.transform.vertex_random(offset=random.uniform(0,0.05), uniform=0.0, normal=0.0, seed=0)
             bpy.ops.mesh.vertices_smooth()
             bpy.ops.mesh.vertices_smooth()
             bpy.ops.mesh.vertices_smooth()
@@ -116,16 +121,20 @@ def gen(dataset_version, TOTAL_IMAGES):
 
             #Create material
             mat = bpy.data.materials.new(name="Material." + str(i))
+            random_shade_1 = random.uniform(0.6,1.2)
+            random_shade_2 = random.uniform(0.6,1.2)
+            random_shade_3 = random.uniform(0.6,1.2)
+            mat.diffuse_color=[0.800000 * random_shade_1, 0.18 * random_shade_2, 0.13 * random_shade_3]
 
-            tex = bpy.data.textures.new("SomeName." + str(i), 'IMAGE')
-            img = bpy.data.images.load(filepath=plain_color('polyp'))
+            # tex = bpy.data.textures.new("SomeName." + str(i), 'IMAGE')
+            # img = bpy.data.images.load(filepath=plain_color('polyp'))
 
-            tex.image = img
-            # tex.texture_coords = 'WINDOW'
+            # tex.image = img
+            # # tex.texture_coords = 'WINDOW'
 
-            slot = mat.texture_slots.add()
-            slot.texture = tex
-            slot.texture_coords = 'GLOBAL'
+            # slot = mat.texture_slots.add()
+            # slot.texture = tex
+            # slot.texture_coords = 'GLOBAL'
 
 
             # Apply material
@@ -133,40 +142,36 @@ def gen(dataset_version, TOTAL_IMAGES):
 
 
 
-            utils.save_project('/synth-polyp/scene.blend')
+            
 
         # Set lighting
         lighting_config = {'l0': {
-                'light_type': 'SUN',
+                'light_type': 'HEMI',
                 'position': [0,0,10],
                 'rotation': [
                     random.uniform(0,4),
                     random.uniform(0,4),
                     random.uniform(0,4)
                 ],
-                'energy': random.uniform(0,2),
+                'energy': random.uniform(0,1),
                 'shadow': False,
                 'color': [
-                    random.uniform(0,1),
-                    random.uniform(0,1),
-                    random.uniform(0,1)
+                    1,1,1
                 ]
 
             },
             'l1': {
-                'light_type': 'SUN',
+                'light_type': 'HEMI',
                 'position': [0,0,10],
                 'rotation': [
                     random.uniform(0,4),
                     random.uniform(0,4),
                     random.uniform(0,4)
                 ],
-                'energy': random.uniform(0,2),
+                'energy': random.uniform(0,1),
                 'shadow': False,
                 'color': [
-                    random.uniform(0,1),
-                    random.uniform(0,1),
-                    random.uniform(0,1)
+                    1,1,1
                 ]
 
             },
@@ -178,12 +183,10 @@ def gen(dataset_version, TOTAL_IMAGES):
                     random.uniform(0,4),
                     random.uniform(0,4)
                 ],
-                'energy': random.uniform(0,2),
+                'energy': random.uniform(0,1),
                 'shadow': False,
                 'color': [
-                    random.uniform(0,1),
-                    random.uniform(0,1),
-                    random.uniform(0,1)
+                    1,1,1
                 ]
             },
             'l3': {
@@ -194,12 +197,10 @@ def gen(dataset_version, TOTAL_IMAGES):
                     random.uniform(0,4),
                     random.uniform(0,4)
                 ],
-                'energy': random.uniform(0,2),
+                'energy': random.uniform(0,1),
                 'shadow': False,
                 'color': [
-                    random.uniform(0,1),
-                    random.uniform(0,1),
-                    random.uniform(0,1)
+                    1,1,1
                 ]
             },
             'l4': {
@@ -210,18 +211,18 @@ def gen(dataset_version, TOTAL_IMAGES):
                     random.uniform(0,4),
                     random.uniform(0,4)
                 ],
-                'energy': random.uniform(0,2),
+                'energy': random.uniform(0,1),
                 'shadow': False,
                 'color': [
-                    random.uniform(0,1),
-                    random.uniform(0,1),
-                    random.uniform(0,1)
+                    1,1,1
                 ]
             }
 
 
         }
         utils.set_lighting(lighting_config)
+
+        utils.save_project('/synth-polyp/scene.blend')
 
         # Render
         utils.render_keyframes('images', image_number, dataset_version)
@@ -266,7 +267,9 @@ def gen(dataset_version, TOTAL_IMAGES):
             img = Image.open(clean_dir + image)
 
             im=np.asarray(img)
-            if 255 not in im:
+            polyp_pixels = np.count_nonzero(im)
+
+            if polyp_pixels < 20000:
                 os.remove(clean_dir + image)
                 os.remove(images_dir + image)
 
