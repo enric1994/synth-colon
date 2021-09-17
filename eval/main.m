@@ -15,7 +15,7 @@ close all;
 clc;
 fprintf('######Evaluate######');
 % ---- 1. ResultMap Path Setting ----
-ResultMapPath = '../results/';
+ResultMapPath = '/main/data/synth_polyp_V9/results/';
 % Models = {'PraNet'}; %{'UNet','UNet++','PraNet','SFA'};
 Models = {'HarDMSEG'};
 modelNum = length(Models);
@@ -48,7 +48,7 @@ for d = 1:datasetNum
         model = Models{m}   % print cur model name
         
         gtPath = [DataPath dataset '/masks/'];
-        resMapPath = [ResultMapPath '/' model '/' dataset '/'];
+        resMapPath = [ResultMapPath '/' dataset '/'];
         
         imgFiles = dir([resMapPath '*.png']);
         imgNUM = length(imgFiles);

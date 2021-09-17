@@ -38,7 +38,7 @@ def test(model, path):
     test_loader = test_dataset(image_root, gt_root, 352)
     b=0.0
     # 50 = CVC-300 test size!
-    for i in range(50):
+    for i in range(len(test_loader)):
         image, gt, name = test_loader.load_data()
         gt = np.asarray(gt, np.float32)
         gt /= (gt.max() + 1e-8)
@@ -64,16 +64,16 @@ def test(model, path):
         a = float(a)
         b = b + a
         
-    return b/100
+    return b/len(test_loader)
 
 
 
-def train(train_loader, model, optimizer, epoch, test_path):
+def train(train_loader, model, optimizer, epoch, test_path, best):
     model.train()
     # ---- multi-scale training ----
     size_rates = [0.75, 1, 1.25]
     loss_record2, loss_record3, loss_record4, loss_record5 = AvgMeter(), AvgMeter(), AvgMeter(), AvgMeter()
-    best = 0.0
+    
     for i, pack in enumerate(train_loader, start=1):
         for rate in size_rates:
             optimizer.zero_grad()
@@ -113,21 +113,23 @@ def train(train_loader, model, optimizer, epoch, test_path):
     os.makedirs(save_path, exist_ok=True)
     
     
-    if (epoch+1) % 1 == 0:
-        meandice = test(model,test_path)
-        if meandice > best:
-            best = meandice
-            torch.save(model.state_dict(), save_path + 'HarD-MSEG-best.pth' )
-            print('[Saving Snapshot:]', save_path + 'HarD-MSEG-best.pth',meandice)
+    # if (epoch+1) % 1 == 0:
+    meandice = test(model,test_path)
+    if meandice > best:
+        best = meandice
+        torch.save(model.state_dict(), save_path + 'HarD-MSEG-best.pth' )
+        print('[Saving Snapshot:]', save_path + 'HarD-MSEG-best.pth',meandice)
+        return best
+    return best
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     
     parser.add_argument('--epoch', type=int,
-                        default=100, help='epoch number')
+                        default=150, help='epoch number')
     
     parser.add_argument('--lr', type=float,
-                        default=1e-4, help='learning rate')
+                        default=5e-6, help='learning rate')
     
     parser.add_argument('--optimizer', type=str,
                         default='Adam', help='choosing optimizer Adam or SGD')
@@ -145,16 +147,16 @@ if __name__ == '__main__':
                         default=0.5, help='gradient clipping margin')
     
     parser.add_argument('--decay_rate', type=float,
-                        default=0.1, help='decay rate of learning rate')
+                        default=0.7, help='decay rate of learning rate')
     
     parser.add_argument('--decay_epoch', type=int,
-                        default=50, help='every n epochs decay learning rate')
+                        default=25, help='every n epochs decay learning rate')
     
     parser.add_argument('--train_path', type=str,
                         default='/synth-polyp/polyp-data/TrainDataset', help='path to train dataset')
     
     parser.add_argument('--test_path', type=str,
-                        default='/synth-polyp/polyp-data/TestDataset/Kvasir' , help='path to testing Kvasir dataset')
+                        default='/polyp-data/TestDataset' , help='path to testing Kvasir dataset')
     
     parser.add_argument('--train_save', type=str,
                         default='HarD-MSEG-best')
@@ -185,7 +187,7 @@ if __name__ == '__main__':
     total_step = len(train_loader)
 
     print("#"*20, "Start Training", "#"*20)
-
+    best = 0.0
     for epoch in range(1, opt.epoch):
         adjust_lr(optimizer, opt.lr, epoch, 0.1, 200)
-        train(train_loader, model, optimizer, epoch, opt.test_path)
+        best = train(train_loader, model, optimizer, epoch, opt.test_path, best)

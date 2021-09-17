@@ -142,6 +142,9 @@ class test_dataset:
             name = name.split('.jpg')[0] + '.png'
         self.index += 1
         return image, gt, name
+    
+    def __len__(self):
+        return len(self.images)
 
     def rgb_loader(self, path):
         with open(path, 'rb') as f:
