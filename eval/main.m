@@ -15,7 +15,7 @@ close all;
 clc;
 fprintf('######Evaluate######');
 % ---- 1. ResultMap Path Setting ----
-ResultMapPath = '/main/data/synth_polyp_V9/results/';
+ResultMapPath = '/main/data/synth_polyp_V10/results/';
 % Models = {'PraNet'}; %{'UNet','UNet++','PraNet','SFA'};
 Models = {'HarDMSEG'};
 modelNum = length(Models);

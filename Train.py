@@ -126,10 +126,10 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     
     parser.add_argument('--epoch', type=int,
-                        default=150, help='epoch number')
+                        default=70, help='epoch number')
     
     parser.add_argument('--lr', type=float,
-                        default=5e-6, help='learning rate')
+                        default=1e-4, help='learning rate')
     
     parser.add_argument('--optimizer', type=str,
                         default='Adam', help='choosing optimizer Adam or SGD')
@@ -147,7 +147,7 @@ if __name__ == '__main__':
                         default=0.5, help='gradient clipping margin')
     
     parser.add_argument('--decay_rate', type=float,
-                        default=0.7, help='decay rate of learning rate')
+                        default=0.1, help='decay rate of learning rate')
     
     parser.add_argument('--decay_epoch', type=int,
                         default=25, help='every n epochs decay learning rate')
@@ -166,6 +166,9 @@ if __name__ == '__main__':
     # ---- build models ----
     # torch.cuda.set_device(0)  # set your gpu device
     model = HarDMSEG().cuda()
+
+    # checkpoint = torch.load('/main/data/synth_polyp_V10/snapshots/HarD-MSEG-best.pth')
+    # modelA.load_state_dict(checkpoint)
 
     # ---- flops and params ----
     # from utils.utils import CalParams

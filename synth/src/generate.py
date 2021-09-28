@@ -145,37 +145,7 @@ def gen(dataset_version, TOTAL_IMAGES):
             
 
         # Set lighting
-        lighting_config = {'l0': {
-                'light_type': 'HEMI',
-                'position': [0,0,10],
-                'rotation': [
-                    random.uniform(0,4),
-                    random.uniform(0,4),
-                    random.uniform(0,4)
-                ],
-                'energy': random.uniform(0,1),
-                'shadow': False,
-                'color': [
-                    1,1,1
-                ]
-
-            },
-            'l1': {
-                'light_type': 'HEMI',
-                'position': [0,0,10],
-                'rotation': [
-                    random.uniform(0,4),
-                    random.uniform(0,4),
-                    random.uniform(0,4)
-                ],
-                'energy': random.uniform(0,1),
-                'shadow': False,
-                'color': [
-                    1,1,1
-                ]
-
-            },
-            'l2': {
+        lighting_config = {'l2': {
                 'light_type': 'SUN',
                 'position': [0,0,10],
                 'rotation': [
@@ -183,15 +153,15 @@ def gen(dataset_version, TOTAL_IMAGES):
                     random.uniform(0,4),
                     random.uniform(0,4)
                 ],
-                'energy': random.uniform(0,1),
+                'energy': random.uniform(2,2),
                 'shadow': False,
                 'color': [
                     1,1,1
                 ]
             },
             'l3': {
-                'light_type': 'SUN',
-                'position': [0,0,10],
+                'light_type': 'POINT',
+                'position': [2.5,0,0],
                 'rotation': [
                     random.uniform(0,4),
                     random.uniform(0,4),
@@ -204,8 +174,8 @@ def gen(dataset_version, TOTAL_IMAGES):
                 ]
             },
             'l4': {
-                'light_type': 'SUN',
-                'position': [0,0,10],
+                'light_type': 'POINT',
+                'position': [3.5,0,0],
                 'rotation': [
                     random.uniform(0,4),
                     random.uniform(0,4),
@@ -216,7 +186,47 @@ def gen(dataset_version, TOTAL_IMAGES):
                 'color': [
                     1,1,1
                 ]
+            },
+            'negative_1': {
+                'light_type': 'POINT',
+                'position': [1.5,0,0],
+                'rotation': [
+                    0,0,0
+                ],
+                'negative_light': True,
+                'energy': random.uniform(0,1),
+                'shadow': False,
+                'color': [
+                    1,1,1
+                ]
+            },
+            'negative_2': {
+                'light_type': 'POINT',
+                'position': [1.5,0.2,0],
+                'rotation': [
+                    0,0,0
+                ],
+                'negative_light': True,
+                'energy': random.uniform(0,1),
+                'shadow': False,
+                'color': [
+                    1,1,1
+                ]
+            },
+             'negative_3': {
+                'light_type': 'POINT',
+                'position': [1.5,-0.2,0],
+                'rotation': [
+                    0,0,0
+                ],
+                'negative_light': True,
+                'energy': random.uniform(0,1),
+                'shadow': False,
+                'color': [
+                    1,1,1
+                ]
             }
+
 
 
         }

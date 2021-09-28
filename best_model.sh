@@ -1,72 +1,69 @@
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 5
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e5.log
+## Clean cyclegan images
+# docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V10/cyclegan_images
+## Infer cyclegan to unrealistic images 
+# docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V10/ --checkpoints_dir /cyclegan/data/synth_polyp_V10/checkpoints --name synth_polyp_V10 --model cycle_gan --phase train --epoch 50
+# --results_dir /cyclegan/data/synth_polyp_V6/cyclegan_images
 
 
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 10
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e10.log
+### Run from main container:
 
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 15
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e15.log
+## Train 
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.01 | tee logs/synth_polyp_V10-e50-a-lr1.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.001 | tee logs/synth_polyp_V10-e50-a-lr2.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.005 | tee logs/synth_polyp_V10-e50-a-lr3.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0001 | tee logs/synth_polyp_V10-e50-a-lr4.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0005 | tee logs/synth_polyp_V10-e50-a-lr5.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00001 | tee logs/synth_polyp_V10-e50-a-lr6.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00005 | tee logs/synth_polyp_V10-e50-a-lr7.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000001 | tee logs/synth_polyp_V10-e50-a-lr8.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000005 | tee logs/synth_polyp_V10-e50-a-lr9.log
 
+## Clean cyclegan images
+docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V10/cyclegan_images
+## Infer cyclegan to unrealistic images 
+docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V10/ --checkpoints_dir /cyclegan/data/synth_polyp_V10/checkpoints --name synth_polyp_V10 --model cycle_gan --phase train --epoch 40
+# --results_dir /cyclegan/data/synth_polyp_V6/cyclegan_images
 
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 20
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e20.log
-
-
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 25
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e25.log
-
-
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 30
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e30.log
-
-
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 35
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e35.log
-
-
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 40
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e40.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.01 | tee logs/synth_polyp_V10-e40-a-lr1.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.001 | tee logs/synth_polyp_V10-e40-a-lr2.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.005 | tee logs/synth_polyp_V10-e40-a-lr3.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0001 | tee logs/synth_polyp_V10-e40-a-lr4.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0005 | tee logs/synth_polyp_V10-e40-a-lr5.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00001 | tee logs/synth_polyp_V10-e40-a-lr6.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00005 | tee logs/synth_polyp_V10-e40-a-lr7.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000001 | tee logs/synth_polyp_V10-e40-a-lr8.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000005 | tee logs/synth_polyp_V10-e40-a-lr9.log
 
 
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 45
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e45.log
+## Clean cyclegan images
+docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V10/cyclegan_images
+## Infer cyclegan to unrealistic images 
+docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V10/ --checkpoints_dir /cyclegan/data/synth_polyp_V10/checkpoints --name synth_polyp_V10 --model cycle_gan --phase train --epoch 30
+# --results_dir /cyclegan/data/synth_polyp_V6/cyclegan_images
+
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.01 | tee logs/synth_polyp_V10-e30-a-lr1.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.001 | tee logs/synth_polyp_V10-e30-a-lr2.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.005 | tee logs/synth_polyp_V10-e30-a-lr3.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0001 | tee logs/synth_polyp_V10-e30-a-lr4.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0005 | tee logs/synth_polyp_V10-e30-a-lr5.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00001 | tee logs/synth_polyp_V10-e30-a-lr6.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00005 | tee logs/synth_polyp_V10-e30-a-lr7.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000001 | tee logs/synth_polyp_V10-e30-a-lr8.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000005 | tee logs/synth_polyp_V10-e30-a-lr9.log
 
 
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 50
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e50.log
+## Clean cyclegan images
+docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V10/cyclegan_images
+## Infer cyclegan to unrealistic images 
+docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V10/ --checkpoints_dir /cyclegan/data/synth_polyp_V10/checkpoints --name synth_polyp_V10 --model cycle_gan --phase train --epoch 10
+# --results_dir /cyclegan/data/synth_polyp_V6/cyclegan_images
 
-
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 55
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e55.log
-
-
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 60
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e60.log
-
-
-docker exec cyclegan rm -rf /cyclegan/data/synth_polyp_V9/cyclegan_images
-docker exec cyclegan python /cyclegan/cyclegan/test.py --dataroot /cyclegan/data/synth_polyp_V9/ --checkpoints_dir /cyclegan/data/synth_polyp_V9/checkpoints --name synth_polyp_V9 --model cycle_gan --phase train --epoch 100
-docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V9 --test_path /polyp-data/TestDataset/CVC-ColonDB --train_save synth_polyp_V9 | tee logs/synth_polyp_V9-d-e100.log
-
-## Generate masks
-# docker exec -it main python /main/Test.py --pth_path /main/data/synth_polyp_V9/snapshots/HarD-MSEG-best.pth --test_data /polyp-data/TestDataset/CVC-ColonDB --save_path /main/data/synth_polyp_V9/results
-
-## Evaluate masks
-# cd eval
-# octave
-# pkg install -forge image
-# pkg load image
-# main
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.01 | tee logs/synth_polyp_V10-e10-a-lr1.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.001 | tee logs/synth_polyp_V10-e10-a-lr2.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.005 | tee logs/synth_polyp_V10-e10-a-lr3.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0001 | tee logs/synth_polyp_V10-e10-a-lr4.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.0005 | tee logs/synth_polyp_V10-e10-a-lr5.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00001 | tee logs/synth_polyp_V10-e10-a-lr6.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.00005 | tee logs/synth_polyp_V10-e10-a-lr7.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000001 | tee logs/synth_polyp_V10-e10-a-lr8.log
+docker exec -it main python /main/Train.py --train_path /main/data/synth_polyp_V10 --test_path /polyp-data/TestDataset/CVC-300 --train_save synth_polyp_V10 --lr 0.000005 | tee logs/synth_polyp_V10-e10-a-lr9.log
