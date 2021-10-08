@@ -12,6 +12,25 @@ services:
     volumes:
       - ../:/main
       - /media/enric/enric_hdd/datasets/polyp-data/:/polyp-data:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train/:/kvasir-train:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-10/:/kvasir-train-10:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-20/:/kvasir-train-20:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-30/:/kvasir-train-30:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-40/:/kvasir-train-40:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-50/:/kvasir-train-50:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-60/:/kvasir-train-60:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-70/:/kvasir-train-70:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-80/:/kvasir-train-80:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-90/:/kvasir-train-90:ro
+      - /media/enric/enric_hdd/datasets/kvasir-train-100/:/kvasir-train-100:ro
+      # - /media/enric/enric_hdd/datasets/polyp-data-100/:/polyp-data-100:ro
+      # - /media/enric/enric_hdd/datasets/polyp-data-50/:/polyp-data-50:ro
+      # - /media/enric/enric_hdd/datasets/polyp-data-40/:/polyp-data-40:ro
+      # - /media/enric/enric_hdd/datasets/polyp-data-30/:/polyp-data-30:ro
+      # - /media/enric/enric_hdd/datasets/polyp-data-20/:/polyp-data-20:ro
+      # - /media/enric/enric_hdd/datasets/polyp-data-10/:/polyp-data-10:ro
+      # - /media/enric/enric_hdd/datasets/polyp-data-5/:/polyp-data-5:ro
+      
     runtime: nvidia
     shm_size: '12gb'
     command: tail /dev/null -f

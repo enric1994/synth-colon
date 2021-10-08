@@ -126,7 +126,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     
     parser.add_argument('--epoch', type=int,
-                        default=70, help='epoch number')
+                        default=200, help='epoch number')
     
     parser.add_argument('--lr', type=float,
                         default=1e-4, help='learning rate')
@@ -168,7 +168,7 @@ if __name__ == '__main__':
     model = HarDMSEG().cuda()
 
     # checkpoint = torch.load('/main/data/synth_polyp_V10/snapshots/HarD-MSEG-best.pth')
-    # modelA.load_state_dict(checkpoint)
+    # model.load_state_dict(checkpoint)
 
     # ---- flops and params ----
     # from utils.utils import CalParams
@@ -183,7 +183,7 @@ if __name__ == '__main__':
         optimizer = torch.optim.SGD(params, opt.lr, weight_decay = 1e-4, momentum = 0.9)
         
     print(optimizer)
-    image_root = '{}/cyclegan_images/'.format(opt.train_path)
+    image_root = '{}/images/'.format(opt.train_path)
     gt_root = '{}/masks/'.format(opt.train_path)
 
     train_loader = get_loader(image_root, gt_root, batchsize=opt.batchsize, trainsize=opt.trainsize, augmentation = opt.augmentation)

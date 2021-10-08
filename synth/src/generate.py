@@ -17,7 +17,7 @@ def gen(dataset_version, TOTAL_IMAGES):
             cpath.points.add(len(points)-1)
             for (index, point) in enumerate(points):
                 cpath.points[index].co = point
-                print(cpath.points[index].co)
+                # print(cpath.points[index].co)
             cpath.use_endpoint_u = True
         elif cpath.type in ['BEZIER']:
             cpath.bezier_points.add(len(points)-1)
@@ -26,7 +26,7 @@ def gen(dataset_version, TOTAL_IMAGES):
                 cpath.bezier_points[index].co = x, y, z
                 cpath.bezier_points[index].handle_left = x-1, y-1, z-1
                 cpath.bezier_points[index].handle_right = x+1, y+1, z+1
-                print(cpath.bezier_points[index].co)
+                # print(cpath.bezier_points[index].co)
         return
 
 
@@ -231,6 +231,36 @@ def gen(dataset_version, TOTAL_IMAGES):
 
         }
         utils.set_lighting(lighting_config)
+
+        
+
+
+        # Save 3D object
+        blend_file_path = bpy.data.filepath
+        directory = os.path.dirname(blend_file_path)
+        os.makedirs('/synth-polyp/data/{}/mesh'.format(dataset_version), exist_ok=True)
+        target_file = os.path.join('/synth-polyp/data/{}/mesh'.format(dataset_version), str(image_number).zfill(8) + '.obj')
+
+        bpy.ops.export_scene.obj(filepath=target_file)
+
+
+        # Render depth
+        bpy.data.scenes['Scene'].use_nodes=True
+
+        bpy.context.scene.use_nodes = True
+        nodes = bpy.context.scene.node_tree.nodes
+        output_file = nodes.new("CompositorNodeOutputFile")
+
+
+        output_file.base_path = '/synth-polyp/data/{}/depth/'.format(dataset_version)
+        output_file.format.file_format = 'OPEN_EXR'
+        tree = bpy.context.scene.node_tree
+        links = tree.links
+
+        links.new(tree.nodes[2].inputs[0], tree.nodes[1].outputs[2])
+
+        bpy.ops.render.render(write_still=True)
+
 
         utils.save_project('/synth-polyp/scene.blend')
 

@@ -12,7 +12,7 @@ parser.add_argument('--pth_path', type=str, default='HarD-MSEG-best.pth')
 parser.add_argument('--test_data', type=str, default='TestData')
 parser.add_argument('--save_path', type=str, default='/main/results/dataset_name')
 #for _data_name in ['CVC-ClinicDB']:
-for _data_name in ['CVC-ColonDB']:
+for _data_name in ['Kvasir']:
     
     opt = parser.parse_args()
     ##### put ur data_path here #####
