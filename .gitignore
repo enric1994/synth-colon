@@ -8,3 +8,5 @@ synth/data/
 eval/EvaluateResults/
 logs/
 data/
+
+!images/*
