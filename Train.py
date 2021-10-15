@@ -183,7 +183,7 @@ if __name__ == '__main__':
         optimizer = torch.optim.SGD(params, opt.lr, weight_decay = 1e-4, momentum = 0.9)
         
     print(optimizer)
-    image_root = '{}/images/'.format(opt.train_path)
+    image_root = '{}/cyclegan_images/'.format(opt.train_path)
     gt_root = '{}/masks/'.format(opt.train_path)
 
     train_loader = get_loader(image_root, gt_root, batchsize=opt.batchsize, trainsize=opt.trainsize, augmentation = opt.augmentation)
