@@ -1,5 +1,11 @@
 # Synthetic data for unsupervised polyp segmentation
 
+**UPDATE** 
+
+We release [CUT-seg](https://github.com/enric1994/cut-seg), a new model that is computationally less expensive, and requires less real images than CycleGAN. It is composed by a segmentation model and a generative model that are jointly trained to produce realistic images while learning to segment polyps. We take advantage of recent one-sided translation models because they use significantly less memory, allowing us to add a segmentation model in the training loop.
+
+<hr /> 
+
 <p>
   <img src="images/synth.png" width="100" />
   <img src="images/gan.png" width="100" /> 

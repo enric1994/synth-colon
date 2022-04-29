@@ -82,6 +82,10 @@ input, select, textarea {
 		box-sizing: inherit;
 	}
 
+	pre {
+		text-align: left;
+	}
+
 	body {
 		background: #f0f0f0;
 	}

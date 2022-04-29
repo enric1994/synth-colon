@@ -1,30 +1,32 @@
 <!DOCTYPE HTML>
 <html>
-	<head>
-		<title>Synth-Colon dataset</title>
-		<meta charset="utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
-		<link rel="stylesheet" href="assets/css/main.css" />
-		<script>
-			fetch('https://api.countapi.xyz/hit/synth-colon/visits')
+
+<head>
+	<title>Synth-Colon dataset</title>
+	<meta charset="utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+	<link rel="stylesheet" href="assets/css/main.css" />
+	<script>
+		fetch('https://api.countapi.xyz/hit/synth-colon/visits')
 			.then(response => response.json())
 			.then(data => null);
 
-    		</script>
-	</head>
-	<body class="homepage is-preload">
-		<div id="page-wrapper">
+	</script>
+</head>
 
-			<!-- Header -->
-				<section id="header">
-					<div class="container">
+<body class="homepage is-preload">
+	<div id="page-wrapper">
 
-						<!-- Logo -->
-							<h1 id="logo">Synth-Colon</h1>
-							<p>A synthetic dataset for polyp segmentation</p>
+		<!-- Header -->
+		<section id="header">
+			<div class="container">
 
-						<!-- Nav -->
-							<!-- <nav id="nav">
+				<!-- Logo -->
+				<h1 id="logo">Synth-Colon</h1>
+				<p>A synthetic dataset for polyp segmentation</p>
+
+				<!-- Nav -->
+				<!-- <nav id="nav">
 								<ul>
 									<li><a class="icon solid fa-home" href="index.html"><span>Introduction</span></a></li>
 									<li>
@@ -50,96 +52,115 @@
 								</ul>
 							</nav> -->
 
+			</div>
+		</section>
+
+		<!-- Features -->
+		<section id="features">
+			<div class="container">
+				<header>
+					<h2>The first polyp segmentation dataset with <strong>self-generated annotations</strong></h2>
+				</header>
+				<div class="row aln-center">
+					<div class="col-4 col-6-medium col-12-small">
+
+						<!-- Feature -->
+						<section>
+							<a href="#" class="image featured"><img src="images/synth.png" alt="" /></a>
+							<header>
+								<h3>Large size</h3>
+							</header>
+							<p><strong>Synth-Colon</strong> is made of 20.000 synthetic images with 500x500 resolution.
+							</p>
+						</section>
+
 					</div>
-				</section>
+					<div class="col-4 col-6-medium col-12-small">
 
-			<!-- Features -->
-				<section id="features">
-					<div class="container">
-						<header><h2>The first polyp segmentation dataset with <strong>self-generated annotations</strong></h2>
-						</header>
-						<div class="row aln-center">
-							<div class="col-4 col-6-medium col-12-small">
+						<!-- Feature -->
+						<section>
+							<a href="#" class="image featured"><img src="images/gan.png" alt="" /></a>
+							<header>
+								<h3>Realisitc</h3>
+							</header>
+							<p>The dataset includes realistic images generated using <strong>CycleGAN</strong> and the
+								Kvasir dataset.</p>
+						</section>
 
-								<!-- Feature -->
-									<section>
-										<a href="#" class="image featured"><img src="images/synth.png" alt="" /></a>
-										<header>
-											<h3>Large size</h3>
-										</header>
-										<p><strong>Synth-Colon</strong> is made of 20.000 synthetic images with 500x500 resolution.</p>
-									</section>
-
-							</div>
-							<div class="col-4 col-6-medium col-12-small">
-
-								<!-- Feature -->
-									<section>
-										<a href="#" class="image featured"><img src="images/gan.png" alt="" /></a>
-										<header>
-											<h3>Realisitc</h3>
-										</header>
-										<p>The dataset includes realistic images generated using <strong>CycleGAN</strong> and the Kvasir dataset.</p>
-									</section>
-
-							</div>
-							<div class="col-4 col-6-medium col-12-small">
-
-								<!-- Feature -->
-									<section>
-										<a href="#" class="image featured"><img src="images/mesh.png" alt="" /></a>
-										<header>
-											<h3>3D mesh</h3>
-										</header>
-										<p><strong>3D mesh</strong> of the colon and polyps in OBJ format. </p>
-									</section>
-
-							</div>
-							<div class="col-4 col-6-medium col-12-small">
-
-								<!-- Feature -->
-									<section>
-										<a href="#" class="image featured"><img src="images/depth.png" alt="" /></a>
-										<header>
-											<h3>Depth map</h3>
-										</header>
-										<p>Detailed <strong> depth information</strong> in OpenEXR format.</p>
-									</section>
-
-							</div>
-							
-							<div class="col-12">
-								
-								<ul class="actions">
-									<li><a target="_blank" href="https://drive.google.com/drive/folders/1f1Q8x8LJN5kBCpdV4-NsZh0f91xShgKI?usp=sharing" class="button icon solid fa-download">Download (41.2 GB)</a></li>
-								</ul>
-								<ul class="actions">
-									<li><a target="_blank" href="https://github.com/enric1994/synth-colon" class="button icon solid fa-file">Source code</a></li>
-								</ul>
-							</div>
-						</div>
 					</div>
-				</section>
-				<!-- <li class="icon brands fa-twitter"> -->
-			<!-- Banner -->
-				<!-- <section id="banner">
+					<div class="col-4 col-6-medium col-12-small">
+
+						<!-- Feature -->
+						<section>
+							<a href="#" class="image featured"><img src="images/mesh.png" alt="" /></a>
+							<header>
+								<h3>3D mesh</h3>
+							</header>
+							<p><strong>3D mesh</strong> of the colon and polyps in OBJ format. </p>
+						</section>
+
+					</div>
+					<div class="col-4 col-6-medium col-12-small">
+
+						<!-- Feature -->
+						<section>
+							<a href="#" class="image featured"><img src="images/depth.png" alt="" /></a>
+							<header>
+								<h3>Depth map</h3>
+							</header>
+							<p>Detailed <strong> depth information</strong> in OpenEXR format.</p>
+						</section>
+
+					</div>
+
+					<div class="col-12">
+
+						<ul class="actions">
+							<li><a target="_blank"
+									href="https://drive.google.com/drive/folders/1f1Q8x8LJN5kBCpdV4-NsZh0f91xShgKI?usp=sharing"
+									class="button icon solid fa-download">Download (41.2 GB)</a></li>
+						</ul>
+						<ul class="actions">
+							<li><a target="_blank" href="https://github.com/enric1994/synth-colon"
+									class="button icon solid fa-file">Source code</a></li>
+						</ul>
+						<hr>
+						<ul class="actions">
+							<p>
+								We release <strong>CUT-seg</strong>, a new model that is computationally less expensive,
+								and requires less real images than CycleGAN.
+								It is composed by a segmentation model and a generative model that are jointly trained
+								to produce realistic images while learning to segment polyps. We take advantage of
+								recent one-sided translation models because they use significantly less memory, allowing
+								us to add a segmentation model in the training loop.
+							</p>
+							<li><a target="_blank" href="https://github.com/enric1994/cut-seg"
+									class="button icon solid fa-file">Source code</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</section>
+		<!-- <li class="icon brands fa-twitter"> -->
+		<!-- Banner -->
+		<!-- <section id="banner">
 					<div class="container">
 						<p>Use this space for <strong>profound thoughts</strong>.<br />
 						Or an enormous ad. Whatever.</p>
 					</div>
 				</section> -->
 
-			<!-- Main -->
-				
+		<!-- Main -->
 
-			<!-- Footer -->
-				<section id="footer">
-					<div class="container">
-						<header>
-							<h2>Citations</h2>
-						</header>
-						<div class="row">
-							<!-- <div class="col-6 col-12-medium">
+
+		<!-- Footer -->
+		<section id="footer">
+			<div class="container">
+				<header>
+					<h2>Citations</h2>
+				</header>
+				<div class="row">
+					<!-- <div class="col-6 col-12-medium">
 								<section>
 									<form method="post" action="#">
 										<div class="row gtr-50">
@@ -159,10 +180,19 @@
 									</form>
 								</section>
 							</div> -->
-							<div class="col-12">
-								<section>
-									<p>Please cite our paper if you are using Synth-Colon: <strong>Synthetic data for unsupervised polyp segmentation</strong></p>
-									<!-- <div class="row">
+					<div class="col-12">
+						<section>
+							<p>
+							<pre>
+											@article{moreu2022synthetic,
+												title={Synthetic data for unsupervised polyp segmentation},
+												author={Moreu, Enric and McGuinness, Kevin and O'Connor, Noel E},
+												journal={arXiv preprint arXiv:2202.08680},
+												year={2022}
+											}
+										</pre>
+							</p>
+							<!-- <div class="row">
 										<div class="col-6 col-12-small">
 											<ul class="icons">
 												<li class="icon solid fa-home">
@@ -195,26 +225,28 @@
 											</ul>
 										</div>
 									</div> -->
-								</section>
-							</div>
-						</div>
+						</section>
 					</div>
-					<div id="copyright" class="container">
-						<ul class="links">
-							<li>&copy; Enric Moreu. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
-						</ul>
-					</div>
-				</section>
+				</div>
+			</div>
+			<div id="copyright" class="container">
+				<ul class="links">
+					<li>&copy; Enric Moreu. All rights reserved.</li>
+					<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+				</ul>
+			</div>
+		</section>
 
-		</div>
+	</div>
 
-		<!-- Scripts -->
-			<script src="assets/js/jquery.min.js"></script>
-			<script src="assets/js/jquery.dropotron.min.js"></script>
-			<script src="assets/js/browser.min.js"></script>
-			<script src="assets/js/breakpoints.min.js"></script>
-			<script src="assets/js/util.js"></script>
-			<script src="assets/js/main.js"></script>
+	<!-- Scripts -->
+	<script src="assets/js/jquery.min.js"></script>
+	<script src="assets/js/jquery.dropotron.min.js"></script>
+	<script src="assets/js/browser.min.js"></script>
+	<script src="assets/js/breakpoints.min.js"></script>
+	<script src="assets/js/util.js"></script>
+	<script src="assets/js/main.js"></script>
 
-	</body>
+</body>
+
 </html>
